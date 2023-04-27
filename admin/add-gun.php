@@ -10,19 +10,19 @@ else{
 
 if(isset($_POST['add']))
 {
-$bookname=$_POST['bookname'];
+$gunname=$_POST['gunname'];
 $category=$_POST['category'];
-$author=$_POST['author'];
-$isbn=$_POST['isbn'];
+$manufacturer=$_POST['manufacturer'];
+$serialnumber=$_POST['serialnumber'];
 $price=$_POST['price'];
-$bookimg=$_FILES["bookpic"]["name"];
+$gunimg=$_FILES["gunpic"]["name"];
 // get the image extension
-$extension = substr($bookimg,strlen($bookimg)-4,strlen($bookimg));
+$extension = substr($gunimg,strlen($gunimg)-4,strlen($gunimg));
 // allowed extensions
 $allowed_extensions = array(".jpg","jpeg",".png",".gif");
 // Validation for allowed extensions .in_array() function searches an array for a specific value.
 //rename the image file
-$imgnewname=md5($bookimg.time()).$extension;
+$imgnewname=md5($gunimg.time()).$extension;
 // Code for move image into directory
 
 if(!in_array($extension,$allowed_extensions))
@@ -31,26 +31,26 @@ echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');
 }
 else
 {
-move_uploaded_file($_FILES["bookpic"]["tmp_name"],"bookimg/".$imgnewname);
-$sql="INSERT INTO  tblGuns(BookName,CatId,AuthorId,ISBNNumber,BookPrice,bookImage) VALUES(:bookname,:category,:author,:isbn,:price,:imgnewname)";
+move_uploaded_file($_FILES["gunpic"]["tmp_name"],"gunimg/".$imgnewname);
+$sql="INSERT INTO  tblGuns(gunname,CatId,manufacturerId,serialnumberNumber,gunPrice,gunImage) VALUES(:gunname,:category,:manufacturer,:serialnumber,:price,:imgnewname)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':bookname',$bookname,PDO::PARAM_STR);
+$query->bindParam(':gunname',$gunname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
-$query->bindParam(':author',$author,PDO::PARAM_STR);
-$query->bindParam(':isbn',$isbn,PDO::PARAM_STR);
+$query->bindParam(':manufacturer',$manufacturer,PDO::PARAM_STR);
+$query->bindParam(':serialnumber',$serialnumber,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
 $query->bindParam(':imgnewname',$imgnewname,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-echo "<script>alert('Book Listed successfully');</script>";
-echo "<script>window.location.href='manage-books.php'</script>";
+echo "<script>alert('gun Listed successfully');</script>";
+echo "<script>window.location.href='manage-guns.php'</script>";
 }
 else 
 {
 echo "<script>alert('Something went wrong. Please try again');</script>";    
-echo "<script>window.location.href='manage-books.php'</script>";
+echo "<script>window.location.href='manage-guns.php'</script>";
 }}
 }
 ?>
@@ -60,8 +60,8 @@ echo "<script>window.location.href='manage-books.php'</script>";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Online Arsenal Management System | Add Book</title>
+    <meta name="manufacturer" content="" />
+    <title>Online Arsenal Management System | Add gun</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -71,14 +71,14 @@ echo "<script>window.location.href='manage-books.php'</script>";
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 <script type="text/javascript">
-    function checkisbnAvailability() {
+    function checkserialnumberAvailability() {
 $("#loaderIcon").show();
 jQuery.ajax({
 url: "check_availability.php",
-data:'isbn='+$("#isbn").val(),
+data:'serialnumber='+$("#serialnumber").val(),
 type: "POST",
 success:function(data){
-$("#isbn-availability-status").html(data);
+$("#serialnumber-availability-status").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -95,7 +95,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Book</h4>
+                <h4 class="header-line">Add gun</h4>
                 
                             </div>
 
@@ -104,15 +104,15 @@ error:function (){}
 <div class="col-md-12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-Book Info
+gun Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
 
 <div class="col-md-6">   
 <div class="form-group">
-<label>Book Name<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="bookname" autocomplete="off"  required />
+<label>gun Name<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="gunname" autocomplete="off"  required />
 </div>
 </div>
 
@@ -140,9 +140,9 @@ foreach($results as $result)
 
 <div class="col-md-6">  
 <div class="form-group">
-<label> Author<span style="color:red;">*</span></label>
-<select class="form-control" name="author" required="required">
-<option value=""> Select Author</option>
+<label> manufacturer<span style="color:red;">*</span></label>
+<select class="form-control" name="manufacturer" required="required">
+<option value=""> Select manufacturer</option>
 <?php 
 
 $sql = "SELECT * from  tblManufacturer ";
@@ -154,17 +154,17 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>  
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->AuthorName);?></option>
+<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->manufacturerName);?></option>
  <?php }} ?> 
 </select>
 </div></div>
 
 <div class="col-md-6">  
 <div class="form-group">
-<label>ISBN Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="isbn" id="isbn" required="required" autocomplete="off" onBlur="checkisbnAvailability()"  />
-<p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
-         <span id="isbn-availability-status" style="font-size:12px;"></span>
+<label>serialnumber Number<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="serialnumber" id="serialnumber" required="required" autocomplete="off" onBlur="checkserialnumberAvailability()"  />
+<p class="help-block">An serialnumber is an International Standard gun Number.serialnumber Must be unique</p>
+         <span id="serialnumber-availability-status" style="font-size:12px;"></span>
 </div></div>
 
 <div class="col-md-6">  
@@ -176,8 +176,8 @@ foreach($results as $result)
 
 <div class="col-md-6">  
  <div class="form-group">
- <label>Book Picture<span style="color:red;">*</span></label>
- <input class="form-control" type="file" name="bookpic" autocomplete="off"   required="required" />
+ <label>gun Picture<span style="color:red;">*</span></label>
+ <input class="form-control" type="file" name="gunpic" autocomplete="off"   required="required" />
  </div>
     </div>
 <button type="submit" name="add" id="add" class="btn btn-info">Submit </button>
