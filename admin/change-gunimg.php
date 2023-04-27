@@ -11,18 +11,18 @@ else{
 if(isset($_POST['update']))
 {
 
-$bookid=intval($_GET['bookid']);
-$bookimg=$_FILES["bookpic"]["name"];
+$gunid=intval($_GET['gunid']);
+$gunimg=$_FILES["gunpic"]["name"];
 //currentimage
 $cimage=$_POST['curremtimage'];
-$cpath="bookimg"."/".$cimage;
+$cpath="gunimg"."/".$cimage;
 // get the image extension
-$extension = substr($bookimg,strlen($bookimg)-4,strlen($bookimg));
+$extension = substr($gunimg,strlen($gunimg)-4,strlen($gunimg));
 // allowed extensions
 $allowed_extensions = array(".jpg","jpeg",".png",".gif");
 // Validation for allowed extensions .in_array() function searches an array for a specific value.
 //rename the image file
-$imgnewname=md5($bookimg.time()).$extension;
+$imgnewname=md5($gunimg.time()).$extension;
 // Code for move image into directory
 
 if(!in_array($extension,$allowed_extensions))
@@ -31,15 +31,15 @@ echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');
 }
 else
 {
-    move_uploaded_file($_FILES["bookpic"]["tmp_name"],"bookimg/".$imgnewname);
-$sql="update  tblGuns set bookImage=:imgnewname where id=:bookid";
+    move_uploaded_file($_FILES["gunpic"]["tmp_name"],"gunimg/".$imgnewname);
+$sql="update  tblGuns set gunImage=:imgnewname where id=:gunid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':imgnewname',$imgnewname,PDO::PARAM_STR);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->execute();
 unlink($cpath);
-echo "<script>alert('Book image updated successfully');</script>";
-echo "<script>window.location.href='manage-books.php'</script>";
+echo "<script>alert('gun image updated successfully');</script>";
+echo "<script>window.location.href='manage-guns.php'</script>";
 
 }
 }
@@ -51,7 +51,7 @@ echo "<script>window.location.href='manage-books.php'</script>";
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Edit Book</title>
+    <title>Online Arsenal Management System | Edit gun</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -70,7 +70,7 @@ echo "<script>window.location.href='manage-books.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Book</h4>
+                <h4 class="header-line">Add gun</h4>
                 
                             </div>
 
@@ -79,15 +79,15 @@ echo "<script>window.location.href='manage-books.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-Book Info
+gun Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
 <?php 
-$bookid=intval($_GET['bookid']);
-$sql = "SELECT tblGuns.BookName,tblGuns.id as bookid,tblGuns.bookImage from  tblGuns  where tblGuns.id=:bookid";
+$gunid=intval($_GET['gunid']);
+$sql = "SELECT tblGuns.gunName,tblGuns.id as gunid,tblGuns.gunImage from  tblGuns  where tblGuns.id=:gunid";
 $query = $dbh -> prepare($sql);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -95,23 +95,23 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>  
-<input type="hidden" name="curremtimage" value="<?php echo htmlentities($result->bookImage);?>">
+<input type="hidden" name="curremtimage" value="<?php echo htmlentities($result->gunImage);?>">
 <div class="col-md-6">
 <div class="form-group">
-<label>Book Image</label>
-<img src="bookimg/<?php echo htmlentities($result->bookImage);?>" width="100">
+<label>gun Image</label>
+<img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Book Name<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="bookname" value="<?php echo htmlentities($result->BookName);?>" readonly />
+<label>gun Name<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->gunName);?>" readonly />
 </div></div>
 
 <div class="col-md-6">  
  <div class="form-group">
- <label>Book Picture<span style="color:red;">*</span></label>
- <input class="form-control" type="file" name="bookpic" autocomplete="off"   required="required" />
+ <label>gun Picture<span style="color:red;">*</span></label>
+ <input class="form-control" type="file" name="gunpic" autocomplete="off"   required="required" />
  </div>
     </div>
  <?php }} ?><div class="col-md-12">
