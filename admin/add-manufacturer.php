@@ -10,21 +10,21 @@ else{
 
 if(isset($_POST['create']))
 {
-$author=$_POST['author'];
-$sql="INSERT INTO  tblManufacturer(AuthorName) VALUES(:author)";
+$manufacturer=$_POST['manufacturer'];
+$sql="INSERT INTO  tblManufacturer(manufacturername) VALUES(:manufacturer)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':author',$author,PDO::PARAM_STR);
+$query->bindParam(':manufacturer',$manufacturer,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$_SESSION['msg']="Author Listed successfully";
-header('location:manage-authors.php');
+$_SESSION['msg']="manufacturer Listed successfully";
+header('location:manage-manufacturers.php');
 }
 else 
 {
 $_SESSION['error']="Something went wrong. Please try again";
-header('location:manage-authors.php');
+header('location:manage-manufacturers.php');
 }
 
 }
@@ -35,8 +35,8 @@ header('location:manage-authors.php');
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Online Arsenal Management System | Add Author</title>
+    <meta name="manufacturer" content="" />
+    <title>Online Arsenal Management System | Add manufacturer</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -56,7 +56,7 @@ header('location:manage-authors.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Author</h4>
+                <h4 class="header-line">Add manufacturer</h4>
                 
                             </div>
 
@@ -65,13 +65,13 @@ header('location:manage-authors.php');
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"">
 <div class="panel panel-info">
 <div class="panel-heading">
-Author Info
+manufacturer Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <div class="form-group">
-<label>Author Name</label>
-<input class="form-control" type="text" name="author" autocomplete="off"  required />
+<label>manufacturer Name</label>
+<input class="form-control" type="text" name="manufacturer" autocomplete="off"  required />
 </div>
 
 <button type="submit" name="create" class="btn btn-info">Add </button>
