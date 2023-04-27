@@ -10,22 +10,22 @@ else{
 
 if(isset($_POST['update']))
 {
-$bookname=$_POST['bookname'];
+$gunname=$_POST['gunname'];
 $category=$_POST['category'];
-$author=$_POST['author'];
-$isbn=$_POST['isbn'];
+$manufacturer=$_POST['manufacturer'];
+$serialnumber=$_POST['serialnumber'];
 $price=$_POST['price'];
-$bookid=intval($_GET['bookid']);
-$sql="update  tblGuns set BookName=:bookname,CatId=:category,AuthorId=:author,BookPrice=:price where id=:bookid";
+$gunid=intval($_GET['gunid']);
+$sql="update  tblGuns set gunName=:gunname,CatId=:category,manufacturerId=:manufacturer,gunPrice=:price where id=:gunid";
 $query = $dbh->prepare($sql);
-$query->bindParam(':bookname',$bookname,PDO::PARAM_STR);
+$query->bindParam(':gunname',$gunname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
-$query->bindParam(':author',$author,PDO::PARAM_STR);
+$query->bindParam(':manufacturer',$manufacturer,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->execute();
-echo "<script>alert('Book info updated successfully');</script>";
-echo "<script>window.location.href='manage-books.php'</script>";
+echo "<script>alert('gun info updated successfully');</script>";
+echo "<script>window.location.href='manage-guns.php'</script>";
 
 
 }
@@ -36,8 +36,8 @@ echo "<script>window.location.href='manage-books.php'</script>";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Online Arsenal Management System | Edit Book</title>
+    <meta name="manufacturer" content="" />
+    <title>Online Arsenal Management System | Edit gun</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -56,7 +56,7 @@ echo "<script>window.location.href='manage-books.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Book</h4>
+                <h4 class="header-line">Add gun</h4>
                 
                             </div>
 
@@ -65,15 +65,15 @@ echo "<script>window.location.href='manage-books.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-Book Info
+gun Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <?php 
-$bookid=intval($_GET['bookid']);
-$sql = "SELECT tblGuns.BookName,tblcategory.CategoryName,tblcategory.id as cid,tblManufacturer.AuthorName,tblManufacturer.id as athrid,tblGuns.ISBNNumber,tblGuns.BookPrice,tblGuns.id as bookid,tblGuns.bookImage from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.AuthorId where tblGuns.id=:bookid";
+$gunid=intval($_GET['gunid']);
+$sql = "SELECT tblGuns.gunName,tblcategory.CategoryName,tblcategory.id as cid,tblManufacturer.manufacturerName,tblManufacturer.id as athrid,tblGuns.serialnumber,tblGuns.gunPrice,tblGuns.id as gunid,tblGuns.gunImage from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.manufacturerId where tblGuns.id=:gunid";
 $query = $dbh -> prepare($sql);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -84,15 +84,15 @@ foreach($results as $result)
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Book Image</label>
-<img src="bookimg/<?php echo htmlentities($result->bookImage);?>" width="100">
-<a href="change-bookimg.php?bookid=<?php echo htmlentities($result->bookid);?>">Change Book Image</a>
+<label>gun Image</label>
+<img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
+<a href="change-gunimg.php?gunid=<?php echo htmlentities($result->gunid);?>">Change gun Image</a>
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Book Name<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="bookname" value="<?php echo htmlentities($result->BookName);?>" required />
+<label>gun Name<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->gunName);?>" required />
 </div></div>
 
 <div class="col-md-6">
@@ -125,9 +125,9 @@ else
 
 <div class="col-md-6">
 <div class="form-group">
-<label> Author<span style="color:red;">*</span></label>
-<select class="form-control" name="author" required="required">
-<option value="<?php echo htmlentities($result->athrid);?>"> <?php echo htmlentities($athrname=$result->AuthorName);?></option>
+<label> manufacturer<span style="color:red;">*</span></label>
+<select class="form-control" name="manufacturer" required="required">
+<option value="<?php echo htmlentities($result->athrid);?>"> <?php echo htmlentities($athrname=$result->manufacturerName);?></option>
 <?php 
 
 $sql2 = "SELECT * from  tblManufacturer ";
@@ -138,13 +138,13 @@ if($query2->rowCount() > 0)
 {
 foreach($result2 as $ret)
 {           
-if($athrname==$ret->AuthorName)
+if($athrname==$ret->manufacturerName)
 {
 continue;
 } else{
 
     ?>  
-<option value="<?php echo htmlentities($ret->id);?>"><?php echo htmlentities($ret->AuthorName);?></option>
+<option value="<?php echo htmlentities($ret->id);?>"><?php echo htmlentities($ret->manufacturerName);?></option>
  <?php }}} ?> 
 </select>
 </div></div>
@@ -152,16 +152,16 @@ continue;
 
 <div class="col-md-6">
 <div class="form-group">
-<label>ISBN Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="isbn" value="<?php echo htmlentities($result->ISBNNumber);?>"  readonly />
-<p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
+<label>serialnumber Number<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="serialnumber" value="<?php echo htmlentities($result->serialnumber);?>"  readonly />
+<p class="help-block">An serialnumber is an International Standard gun Number.serialnumber Must be unique</p>
 </div></div>
 
 
 <div class="col-md-6">
  <div class="form-group">
  <label>Price in USD<span style="color:red;">*</span></label>
- <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->BookPrice);?>"   required="required" />
+ <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->gunPrice);?>"   required="required" />
  </div></div>
  <?php }} ?><div class="col-md-12">
 <button type="submit" name="update" class="btn btn-info">Update </button></div>
