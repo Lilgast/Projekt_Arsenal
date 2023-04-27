@@ -7,17 +7,7 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{ 
-if(isset($_GET['del']))
-{
-$id=$_GET['del'];
-$sql = "delete from tblcategory  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:manage-categories.php');
 
-}
 
 
     ?>
@@ -28,7 +18,7 @@ header('location:manage-categories.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Manage Categories</title>
+    <title>Online Arsenal Management System | Manage Issued Guns</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -49,7 +39,7 @@ header('location:manage-categories.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Categories</h4>
+                <h4 class="header-line">Manage Issued Guns</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -72,16 +62,7 @@ header('location:manage-categories.php');
 </div>
 </div>
 <?php } ?>
-<?php if($_SESSION['updatemsg']!="")
-{?>
-<div class="col-md-6">
-<div class="alert alert-success" >
- <strong>Success :</strong> 
- <?php echo htmlentities($_SESSION['updatemsg']);?>
-<?php echo htmlentities($_SESSION['updatemsg']="");?>
-</div>
-</div>
-<?php } ?>
+
 
 
    <?php if($_SESSION['delmsg']!="")
@@ -97,13 +78,14 @@ header('location:manage-categories.php');
 
 </div>
 
+
         </div>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Categories Listing
+                          Issued Guns 
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -111,15 +93,16 @@ header('location:manage-categories.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Category</th>
-                                            <th>Status</th>
-                                            <th>Creation Date</th>
-                                            <th>Updation Date</th>
+                                            <th>Client Name</th>
+                                            <th>Gun Name</th>
+                                            <th>Serial Number </th>
+                                            <th>Issued Date</th>
+                                            <th>Return Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT * from  tblcategory";
+<?php $sql = "SELECT tblclients.FullName,tblGuns.GunName,tblGuns.SerialNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid from  issuedgundetails join tblclients on tblclients.CLientId=issuedgundetails.ClientId join tblGuns on tblGuns.id=issuedgundetails.GunId order by issuedgundetails.id desc";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -130,18 +113,23 @@ foreach($results as $result)
 {               ?>                                      
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
-                                            <td class="center"><?php if($result->Status==1) {?>
-                                            <a href="#" class="btn btn-success btn-xs">Active</a>
-                                            <?php } else {?>
-                                            <a href="#" class="btn btn-danger btn-xs">Inactive</a>
-                                            <?php } ?></td>
-                                            <td class="center"><?php echo htmlentities($result->CreationDate);?></td>
-                                            <td class="center"><?php echo htmlentities($result->UpdationDate);?></td>
+                                            <td class="center"><?php echo htmlentities($result->FullName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->GunName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->SerialNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
+                                            <td class="center"><?php if($result->ReturnDate=="")
+                                            {
+                                                echo htmlentities("Not Return Yet");
+                                            } else {
+
+
+                                            echo htmlentities($result->ReturnDate);
+}
+                                            ?></td>
                                             <td class="center">
 
-                                            <a href="edit-category.php?catid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                          <a href="manage-categories.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="update-issue-gundeails.php?rid=<?php echo htmlentities($result->rid);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
+                                         
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      

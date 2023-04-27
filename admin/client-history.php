@@ -7,16 +7,32 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{ 
-if(isset($_GET['del']))
+  
+if(isset($_GET['inid']))
 {
-$id=$_GET['del'];
-$sql = "delete from tblcategory  WHERE id=:id";
+$id=$_GET['inid'];
+$status=0;
+$sql = "update tblclients set Status=:status  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> bindParam(':status',$status, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:manage-categories.php');
+header('location:reg-client.php');
+}
 
+
+
+//code for active clients
+if(isset($_GET['id']))
+{
+$id=$_GET['id'];
+$status=1;
+$sql = "update tblclients set Status=:status  WHERE id=:id";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> bindParam(':status',$status, PDO::PARAM_STR);
+$query -> execute();
+header('location:reg-clients.php');
 }
 
 
@@ -28,7 +44,7 @@ header('location:manage-categories.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Manage Categories</title>
+    <title>Online Arsenal Management System | Client History</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -49,53 +65,10 @@ header('location:manage-categories.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Categories</h4>
+                <?php $sid=$_GET['stdid']; ?>
+                <h4 class="header-line">#<?php echo $sid;?> Gun Issued History</h4>
     </div>
-     <div class="row">
-    <?php if($_SESSION['error']!="")
-    {?>
-<div class="col-md-6">
-<div class="alert alert-danger" >
- <strong>Error :</strong> 
- <?php echo htmlentities($_SESSION['error']);?>
-<?php echo htmlentities($_SESSION['error']="");?>
-</div>
-</div>
-<?php } ?>
-<?php if($_SESSION['msg']!="")
-{?>
-<div class="col-md-6">
-<div class="alert alert-success" >
- <strong>Success :</strong> 
- <?php echo htmlentities($_SESSION['msg']);?>
-<?php echo htmlentities($_SESSION['msg']="");?>
-</div>
-</div>
-<?php } ?>
-<?php if($_SESSION['updatemsg']!="")
-{?>
-<div class="col-md-6">
-<div class="alert alert-success" >
- <strong>Success :</strong> 
- <?php echo htmlentities($_SESSION['updatemsg']);?>
-<?php echo htmlentities($_SESSION['updatemsg']="");?>
-</div>
-</div>
-<?php } ?>
 
-
-   <?php if($_SESSION['delmsg']!="")
-    {?>
-<div class="col-md-6">
-<div class="alert alert-success" >
- <strong>Success :</strong> 
- <?php echo htmlentities($_SESSION['delmsg']);?>
-<?php echo htmlentities($_SESSION['delmsg']="");?>
-</div>
-</div>
-<?php } ?>
-
-</div>
 
         </div>
             <div class="row">
@@ -103,7 +76,8 @@ header('location:manage-categories.php');
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Categories Listing
+
+<?php echo $sid;?> Details
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -111,15 +85,19 @@ header('location:manage-categories.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Category</th>
-                                            <th>Status</th>
-                                            <th>Creation Date</th>
-                                            <th>Updation Date</th>
-                                            <th>Action</th>
+                                            <th>Client ID</th>
+                                            <th>Client Name</th>
+                                            <th>Issued Gun  </th>
+                                            <th>Issued Date</th>
+                                            <th>Returned Date</th>
+                                            <th>Fine (if any)</th>
+          
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT * from  tblcategory";
+<?php 
+
+$sql = "SELECT tblclients.ClientId ,tblclients.FullName,tblclients.EmailId,tblclients.MobileNumber,tblGuns.GunName,tblGuns.ISBNNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid,issuedgundetails.fine,issuedgundetails.RetrunStatus,tblGuns.id as bid,tblGuns.gunImage from  issuedgundetails join tblclients on tblclients.ClientId=issuedgundetails.ClientId join tblGuns on tblGuns.id=issuedgundetails.GunId where tblclients.ClientId='$sid' ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -130,19 +108,17 @@ foreach($results as $result)
 {               ?>                                      
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
-                                            <td class="center"><?php if($result->Status==1) {?>
-                                            <a href="#" class="btn btn-success btn-xs">Active</a>
-                                            <?php } else {?>
-                                            <a href="#" class="btn btn-danger btn-xs">Inactive</a>
-                                            <?php } ?></td>
-                                            <td class="center"><?php echo htmlentities($result->CreationDate);?></td>
-                                            <td class="center"><?php echo htmlentities($result->UpdationDate);?></td>
-                                            <td class="center">
-
-                                            <a href="edit-category.php?catid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                          <a href="manage-categories.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
-                                            </td>
+                                            <td class="center"><?php echo htmlentities($result->ClientId);?></td>
+                                            <td class="center"><?php echo htmlentities($result->FullName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->GunName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
+                                            <td class="center"><?php if($result->ReturnDate==''): echo "Not returned yet";
+                                            else: echo htmlentities($result->ReturnDate); endif;?></td>
+                                             <td class="center"><?php if($result->ReturnDate==''): echo "Not returned yet";
+                                              else: echo $result->fine; endif;
+                                             ?></td>
+                                            
+                            
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
                                     </tbody>
