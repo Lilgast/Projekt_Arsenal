@@ -11,14 +11,14 @@ else{
 if(isset($_POST['update']))
 {
 $athrid=intval($_GET['athrid']);
-$author=$_POST['author'];
-$sql="update  tblManufacturer set AuthorName=:author where id=:athrid";
+$manufacturer=$_POST['manufacturer'];
+$sql="update  tblManufacturer set manufacturerName=:manufacturer where id=:athrid";
 $query = $dbh->prepare($sql);
-$query->bindParam(':author',$author,PDO::PARAM_STR);
+$query->bindParam(':manufacturer',$manufacturer,PDO::PARAM_STR);
 $query->bindParam(':athrid',$athrid,PDO::PARAM_STR);
 $query->execute();
-$_SESSION['updatemsg']="Author info updated successfully";
-header('location:manage-authors.php');
+$_SESSION['updatemsg']="manufacturer info updated successfully";
+header('location:manage-manufacturers.php');
 
 
 
@@ -30,8 +30,8 @@ header('location:manage-authors.php');
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Online Arsenal Management System | Add Author</title>
+    <meta name="manufacturer" content="" />
+    <title>Online Arsenal Management System | Add manufacturer</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -51,7 +51,7 @@ header('location:manage-authors.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Author</h4>
+                <h4 class="header-line">Add manufacturer</h4>
                 
                             </div>
 
@@ -60,12 +60,12 @@ header('location:manage-authors.php');
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"">
 <div class="panel panel-info">
 <div class="panel-heading">
-Author Info
+manufacturer Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <div class="form-group">
-<label>Author Name</label>
+<label>manufacturer Name</label>
 <?php 
 $athrid=intval($_GET['athrid']);
 $sql = "SELECT * from  tblManufacturer where id=:athrid";
@@ -78,7 +78,7 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>   
-<input class="form-control" type="text" name="author" value="<?php echo htmlentities($result->AuthorName);?>" required />
+<input class="form-control" type="text" name="manufacturer" value="<?php echo htmlentities($result->manufacturerName);?>" required />
 <?php }} ?>
 </div>
 

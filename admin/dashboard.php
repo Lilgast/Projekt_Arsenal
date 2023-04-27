@@ -13,7 +13,7 @@ else{?>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="manufacturer" content="" />
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
@@ -43,24 +43,24 @@ else{?>
         </div>
              
              <div class="row">
-<a href="manage-books.php">
+<a href="manage-guns.php">
  <div class="col-md-3 col-sm-3 col-xs-6">
  <div class="alert alert-success back-widget-set text-center">
- <i class="fa fa-book fa-5x"></i>
+ <i class="fa fa-gun fa-5x"></i>
 <?php 
 $sql ="SELECT id from tblGuns ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$listdbooks=$query->rowCount();
+$listdguns=$query->rowCount();
 ?>
-<h3><?php echo htmlentities($listdbooks);?></h3>
-Books Listed
+<h3><?php echo htmlentities($listdguns);?></h3>
+guns Listed
 </div></div></a>
 
             
        
-             <a href="manage-issued-books.php">
+             <a href="manage-issued-guns.php">
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-warning back-widget-set text-center">
                             <i class="fa fa-recycle fa-5x"></i>
@@ -69,11 +69,11 @@ $sql2 ="SELECT id from issuedgundetails where (RetrunStatus='' || RetrunStatus i
 $query2 = $dbh -> prepare($sql2);
 $query2->execute();
 $results2=$query2->fetchAll(PDO::FETCH_OBJ);
-$returnedbooks=$query2->rowCount();
+$returnedguns=$query2->rowCount();
 ?>
 
-                            <h3><?php echo htmlentities($returnedbooks);?></h3>
-                          Books Not Returned Yet
+                            <h3><?php echo htmlentities($returnedguns);?></h3>
+                          guns Not Returned Yet
                         </div>
                     </div>
                 </a>
@@ -95,7 +95,7 @@ $regstds=$query3->rowCount();
                     </div></a>
 
 
-  <a href="manage-authors.php">
+  <a href="manage-manufacturers.php">
  <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-user fa-5x"></i>
@@ -107,7 +107,7 @@ $results4=$query4->fetchAll(PDO::FETCH_OBJ);
 $listdathrs=$query4->rowCount();
 ?>
 <h3><?php echo htmlentities($listdathrs);?></h3>
-Authors Listed
+manufacturers Listed
 </div>
 </div></a>
 </div>
