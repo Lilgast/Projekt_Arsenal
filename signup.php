@@ -5,22 +5,22 @@ error_reporting(0);
 if(isset($_POST['signup']))
 {
  
-//Code for student ID
-$count_my_page = ("studentid.txt");
+//Code for Client ID
+$count_my_page = ("Clientid.txt");
 $hits = file($count_my_page);
 $hits[0] ++;
 $fp = fopen($count_my_page , "w");
 fputs($fp , "$hits[0]");
 fclose($fp); 
-$StudentId= $hits[0];   
+$ClientId= $hits[0];   
 $fname=$_POST['fullanme'];
 $mobileno=$_POST['mobileno'];
 $email=$_POST['email']; 
 $password=md5($_POST['password']); 
 $status=1;
-$sql="INSERT INTO  tblclients(StudentId,FullName,MobileNumber,EmailId,Password,Status) VALUES(:StudentId,:fname,:mobileno,:email,:password,:status)";
+$sql="INSERT INTO  tblclients(ClientId,FullName,MobileNumber,EmailId,Password,Status) VALUES(:ClientId,:fname,:mobileno,:email,:password,:status)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':StudentId',$StudentId,PDO::PARAM_STR);
+$query->bindParam(':ClientId',$ClientId,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
 $query->bindParam(':mobileno',$mobileno,PDO::PARAM_STR);
 $query->bindParam(':email',$email,PDO::PARAM_STR);
@@ -30,7 +30,7 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-echo '<script>alert("Your Registration successfull and your student id is  "+"'.$StudentId.'")</script>';
+echo '<script>alert("Your Registration successfull and your Client id is  "+"'.$ClientId.'")</script>';
 }
 else 
 {
@@ -50,7 +50,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
-    <title>Online Arsenal Management System | Student Signup</title>
+    <title>Online Arsenal Management System | Client Signup</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->

@@ -13,7 +13,7 @@ $sid=$_SESSION['stdid'];
 $fname=$_POST['fullanme'];
 $mobileno=$_POST['mobileno'];
 
-$sql="update tblclients set FullName=:fname,MobileNumber=:mobileno where StudentId=:sid";
+$sql="update tblclients set FullName=:fname,MobileNumber=:mobileno where ClientId=:sid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':sid',$sid,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
@@ -35,7 +35,7 @@ echo '<script>alert("Your profile has been updated")</script>';
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
-    <title>Online Arsenal Management System | Student Signup</title>
+    <title>Online Arsenal Management System | Client Signup</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -70,7 +70,7 @@ echo '<script>alert("Your profile has been updated")</script>';
                             <form name="signup" method="post">
 <?php 
 $sid=$_SESSION['stdid'];
-$sql="SELECT StudentId,FullName,EmailId,MobileNumber,RegDate,UpdationDate,Status from  tblclients  where StudentId=:sid ";
+$sql="SELECT ClientId,FullName,EmailId,MobileNumber,RegDate,UpdationDate,Status from  tblclients  where ClientId=:sid ";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':sid', $sid, PDO::PARAM_STR);
 $query->execute();
@@ -82,8 +82,8 @@ foreach($results as $result)
 {               ?>  
 
 <div class="form-group">
-<label>Student ID : </label>
-<?php echo htmlentities($result->StudentId);?>
+<label>Client ID : </label>
+<?php echo htmlentities($result->ClientId);?>
 </div>
 
 <div class="form-group">

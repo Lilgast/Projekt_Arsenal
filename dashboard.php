@@ -42,19 +42,19 @@ else{?>
              <div class="row">
 
 
-<a href="listed-books.php">
+<a href="listed-guns.php">
 <div class="col-md-4 col-sm-4 col-xs-6">
  <div class="alert alert-success back-widget-set text-center">
  <i class="fa fa-book fa-5x"></i>
 <?php 
-$sql ="SELECT id from tblGuns ";
+$sql ="SELECT id from tblguns ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-$listdbooks=$query->rowCount();
+$listdguns=$query->rowCount();
 ?>
-<h3><?php echo htmlentities($listdbooks);?></h3>
-Books Listed
+<h3><?php echo htmlentities($listdguns);?></h3>
+Guns Listed
 </div></div></a>
              
                <div class="col-md-4 col-sm-4 col-xs-6">
@@ -63,26 +63,26 @@ Books Listed
 <?php 
 $rsts=0;
  $sid=$_SESSION['stdid'];
-$sql2 ="SELECT id from issuedgundetails where StudentID=:sid and (RetrunStatus=:rsts || RetrunStatus is null || RetrunStatus='')";
+$sql2 ="SELECT id from issuedgundetails where ClientID=:sid and (RetrunStatus=:rsts || RetrunStatus is null || RetrunStatus='')";
 $query2 = $dbh -> prepare($sql2);
 $query2->bindParam(':sid',$sid,PDO::PARAM_STR);
 $query2->bindParam(':rsts',$rsts,PDO::PARAM_STR);
 $query2->execute();
 $results2=$query2->fetchAll(PDO::FETCH_OBJ);
-$returnedbooks=$query2->rowCount();
+$returnedguns=$query2->rowCount();
 ?>
 
-                            <h3><?php echo htmlentities($returnedbooks);?></h3>
-                          Books Not Returned Yet
+                            <h3><?php echo htmlentities($returnedguns);?></h3>
+                          Guns Not Returned Yet
                         </div>
                     </div>
 
-<a href="issued-books.php">
+<a href="issued-guns.php">
 <div class="col-md-4 col-sm-4 col-xs-6">
  <div class="alert alert-success back-widget-set text-center">
  <i class="fa fa-book fa-5x"></i>
       <h3>&nbsp;</h3>
-Issued Books
+Issued guns
 </div></div></a>
 
 

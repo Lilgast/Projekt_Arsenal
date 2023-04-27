@@ -10,7 +10,7 @@ if(isset($_POST['login']))
 
 $email=$_POST['emailid'];
 $password=md5($_POST['password']);
-$sql ="SELECT EmailId,Password,StudentId,Status FROM tblclients WHERE EmailId=:email and Password=:password";
+$sql ="SELECT EmailId,Password,ClientId,Status FROM tblclients WHERE EmailId=:email and Password=:password";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> bindParam(':password', $password, PDO::PARAM_STR);
@@ -20,7 +20,7 @@ $results=$query->fetchAll(PDO::FETCH_OBJ);
 if($query->rowCount() > 0)
 {
  foreach ($results as $result) {
- $_SESSION['stdid']=$result->StudentId;
+ $_SESSION['stdid']=$result->ClientId;
 if($result->Status==1)
 {
 $_SESSION['login']=$_POST['emailid'];
