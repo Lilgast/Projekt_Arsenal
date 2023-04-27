@@ -11,25 +11,25 @@ else{
 if(isset($_POST['issue']))
 {
 $studentid=strtoupper($_POST['studentid']);
-$bookid=$_POST['bookid'];
+$gunid=$_POST['gunid'];
 $isissued=1;
-$sql="INSERT INTO  issuedgundetails(StudentID,BookId) VALUES(:studentid,:bookid);
-update tblGuns set isIssued=:isissued where id=:bookid;";
+$sql="INSERT INTO  issuedgundetails(StudentID,gunId) VALUES(:studentid,:gunid);
+update tblGuns set isIssued=:isissued where id=:gunid;";
 $query = $dbh->prepare($sql);
 $query->bindParam(':studentid',$studentid,PDO::PARAM_STR);
-$query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
+$query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->bindParam(':isissued',$isissued,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$_SESSION['msg']="Book issued successfully";
-header('location:manage-issued-books.php');
+$_SESSION['msg']="gun issued successfully";
+header('location:manage-issued-guns.php');
 }
 else 
 {
 $_SESSION['error']="Something went wrong. Please try again";
-header('location:manage-issued-books.php');
+header('location:manage-issued-guns.php');
 }
 
 }
@@ -40,8 +40,8 @@ header('location:manage-issued-books.php');
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Online Arsenal Management System | Issue a new Book</title>
+    <meta name="manufacturer" content="" />
+    <title>Online Arsenal Management System | Issue a new gun</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -66,15 +66,15 @@ error:function (){}
 });
 }
 
-//function for book details
-function getbook() {
+//function for gun details
+function getgun() {
 $("#loaderIcon").show();
 jQuery.ajax({
-url: "get_book.php",
-data:'bookid='+$("#bookid").val(),
+url: "get_gun.php",
+data:'gunid='+$("#gunid").val(),
 type: "POST",
 success:function(data){
-$("#get_book_name").html(data);
+$("#get_gun_name").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -99,7 +99,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Issue a New Book</h4>
+                <h4 class="header-line">Issue a New gun</h4>
                 
                             </div>
 
@@ -108,7 +108,7 @@ error:function (){}
 <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1">
 <div class="panel panel-info">
 <div class="panel-heading">
-Issue a New Book
+Issue a New gun
 </div>
 <div class="panel-body">
 <form role="form" method="post">
@@ -127,14 +127,14 @@ Issue a New Book
 
 
 <div class="form-group">
-<label>ISBN Number or Book Title<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="booikid" id="bookid" onBlur="getbook()"  required="required" />
+<label>serial Number or gun Title<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="booikid" id="gunid" onBlur="getgun()"  required="required" />
 </div>
 
- <div class="form-group" id="get_book_name">
+ <div class="form-group" id="get_gun_name">
 
  </div>
-<button type="submit" name="issue" id="submit" class="btn btn-info">Issue Book </button>
+<button type="submit" name="issue" id="submit" class="btn btn-info">Issue gun </button>
 
                                     </form>
                             </div>
