@@ -10,20 +10,20 @@ else{
 
 if(isset($_POST['issue']))
 {
-$studentid=strtoupper($_POST['studentid']);
+$clientid=strtoupper($_POST['clientid']);
 $gunid=$_POST['gunid'];
 $isissued=1;
-$sql="INSERT INTO  issuedgundetails(StudentID,gunId) VALUES(:studentid,:gunid);
+$sql="INSERT INTO  issuedgundetails(ClientID,gunId) VALUES(:clientid,:gunid);
 update tblGuns set isIssued=:isissued where id=:gunid;";
 $query = $dbh->prepare($sql);
-$query->bindParam(':studentid',$studentid,PDO::PARAM_STR);
+$query->bindParam(':clientid',$clientid,PDO::PARAM_STR);
 $query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->bindParam(':isissued',$isissued,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$_SESSION['msg']="gun issued successfully";
+$_SESSION['msg']="Gun issued successfully";
 header('location:manage-issued-guns.php');
 }
 else 
@@ -51,15 +51,15 @@ header('location:manage-issued-guns.php');
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 <script>
-// function for get student name
-function getstudent() {
+// function for get client name
+function getclient() {
 $("#loaderIcon").show();
 jQuery.ajax({
-url: "get_student.php",
-data:'studentid='+$("#studentid").val(),
+url: "get_client.php",
+data:'clientid='+$("#clientid").val(),
 type: "POST",
 success:function(data){
-$("#get_student_name").html(data);
+$("#get_client_name").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -99,7 +99,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Issue a New gun</h4>
+                <h4 class="header-line">Issue a New Firearm</h4>
                 
                             </div>
 
@@ -108,18 +108,18 @@ error:function (){}
 <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1">
 <div class="panel panel-info">
 <div class="panel-heading">
-Issue a New gun
+Issue a New Firearm
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 
 <div class="form-group">
-<label>Student id<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="studentid" id="studentid" onBlur="getstudent()" autocomplete="off"  required />
+<label>Client id<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="clientid" id="clientid" onBlur="getclient()" autocomplete="off"  required />
 </div>
 
 <div class="form-group">
-<span id="get_student_name" style="font-size:16px;"></span> 
+<span id="get_client_name" style="font-size:16px;"></span> 
 </div>
 
 
@@ -127,14 +127,14 @@ Issue a New gun
 
 
 <div class="form-group">
-<label>serial Number or gun Title<span style="color:red;">*</span></label>
+<label>Serial Number of Firearm / Equipement<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="booikid" id="gunid" onBlur="getgun()"  required="required" />
 </div>
 
  <div class="form-group" id="get_gun_name">
 
  </div>
-<button type="submit" name="issue" id="submit" class="btn btn-info">Issue gun </button>
+<button type="submit" name="issue" id="submit" class="btn btn-info">Issue Fireamr </button>
 
                                     </form>
                             </div>

@@ -69,7 +69,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add gun</h4>
+                <h4 class="header-line">Add Firearm</h4>
                 
                             </div>
 
@@ -78,7 +78,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-gun Info
+Firearm Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
@@ -97,19 +97,19 @@ foreach($results as $result)
 <input type="hidden" name="curremtimage" value="<?php echo htmlentities($result->gunImage);?>">
 <div class="col-md-6">
 <div class="form-group">
-<label>gun Image</label>
+<label>Firearm Image</label>
 <img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>gun Name<span style="color:red;">*</span></label>
+<label>Firearm Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->gunName);?>" readonly />
 </div></div>
 
 <div class="col-md-6">  
  <div class="form-group">
- <label>gun Picture<span style="color:red;">*</span></label>
+ <label>Firearm Picture<span style="color:red;">*</span></label>
  <input class="form-control" type="file" name="gunpic" autocomplete="off"   required="required" />
  </div>
     </div>

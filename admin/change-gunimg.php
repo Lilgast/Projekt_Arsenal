@@ -45,7 +45,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Edit gun</title>
+    <title>Online Arsenal Management System | Edit Firearm</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -64,7 +64,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Edit Gun</h4>
+                <h4 class="header-line">Edit Firearm</h4>
                 
                             </div>
 
@@ -73,7 +73,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-    Gun Info
+Firearm Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
@@ -92,13 +92,13 @@ foreach($results as $result)
 <input type="hidden" name="curremtimage" value="<?php echo htmlentities($result->gunImage);?>">
 <div class="col-md-6">
 <div class="form-group">
-<label>Gun Image</label>
+<label>Firearm Image</label>
 <img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Gun Name<span style="color:red;">*</span></label>
+<label>Firearm Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->gunName);?>" readonly />
 </div></div>
 

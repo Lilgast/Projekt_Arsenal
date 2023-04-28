@@ -39,7 +39,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Issued Guns</h4>
+                <h4 class="header-line">Manage Issued Firearms</h4>
     </div>
     
 
@@ -48,7 +48,7 @@ else{
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                          Issued Guns 
+                          Issued Firearms 
                         </div>
                         <div class="panel-body">
                        
@@ -67,13 +67,13 @@ foreach($results as $result)
 
                                    
                                         
-<img src="admin/gunimg/<?php echo htmlentities($result->bookImage);?>" width="100">
-                                                <br /><b><?php echo htmlentities($result->BookName);?></b><br />
+<img src="admin/gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
+                                                <br /><b><?php echo htmlentities($result->GunName);?></b><br />
                                                 <?php echo htmlentities($result->CategoryName);?><br />
                                             <?php echo htmlentities($result->ManufacturerName);?><br />
                                             <?php echo htmlentities($result->SerialNumber);?><br />
                                                 <?php if($result->isIssued=='1'): ?>
-<p style="color:red;">Gun Already issued</p>
+<p style="color:red;">Firearm Already issued</p>
 <?php endif;?>
                             </div>
 

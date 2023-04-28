@@ -55,7 +55,7 @@ $results=$query->fetchAll(PDO::FETCH_OBJ);
 $listdguns=$query->rowCount();
 ?>
 <h3><?php echo htmlentities($listdguns);?></h3>
-Guns Listed
+Firearms Listed
 </div></div></a>
 
             
@@ -73,7 +73,7 @@ $returnedguns=$query2->rowCount();
 ?>
 
                             <h3><?php echo htmlentities($returnedguns);?></h3>
-                          Guns Not Returned Yet
+                            Firearms Not Returned Yet
                         </div>
                     </div>
                 </a>
@@ -107,7 +107,7 @@ $results4=$query4->fetchAll(PDO::FETCH_OBJ);
 $listdathrs=$query4->rowCount();
 ?>
 <h3><?php echo htmlentities($listdathrs);?></h3>
-manufacturers Listed
+Manufacturers Listed
 </div>
 </div></a>
 </div>

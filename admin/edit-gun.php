@@ -56,7 +56,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Edit Gun</h4>
+                <h4 class="header-line">Edit Firearm</h4>
                 
                             </div>
 
@@ -65,7 +65,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-Gun Info
+Firearm Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
@@ -84,14 +84,14 @@ foreach($results as $result)
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Gun Image</label>
+<label>Firearm Image</label>
 <img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
-<a href="change-gunimg.php?gunid=<?php echo htmlentities($result->gunid);?>">Change Gun Image</a>
+<a href="change-gunimg.php?gunid=<?php echo htmlentities($result->gunid);?>">Change Firearm Image</a>
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Gun Name<span style="color:red;">*</span></label>
+<label>Firearm Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->GunName);?>" required />
 </div></div>
 

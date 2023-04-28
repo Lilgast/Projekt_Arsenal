@@ -56,7 +56,7 @@ header('location:manage-manufacturers.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add manufacturer</h4>
+                <h4 class="header-line">Add Manufacturer</h4>
                 
                             </div>
 
@@ -65,12 +65,12 @@ header('location:manage-manufacturers.php');
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"">
 <div class="panel panel-info">
 <div class="panel-heading">
-manufacturer Info
+Manufacturer Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <div class="form-group">
-<label>manufacturer Name</label>
+<label>Manufacturer Name</label>
 <input class="form-control" type="text" name="manufacturer" autocomplete="off"  required />
 </div>
 

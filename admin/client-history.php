@@ -66,7 +66,7 @@ header('location:reg-clients.php');
         <div class="row pad-botm">
             <div class="col-md-12">
                 <?php $sid=$_GET['stdid']; ?>
-                <h4 class="header-line">#<?php echo $sid;?> Gun Issued History</h4>
+                <h4 class="header-line">#<?php echo $sid;?> Firearm Issued History</h4>
     </div>
 
 

@@ -13,7 +13,7 @@ if(isset($_POST['add']))
 $gunname=$_POST['gunname'];
 $category=$_POST['category'];
 $manufacturer=$_POST['manufacturer'];
-$serialnumber=$_POST['serialnumber'];
+$serial=$_POST['serial'];
 $price=$_POST['price'];
 $gunimg=$_FILES["gunpic"]["name"];
 // get the image extension
@@ -32,19 +32,19 @@ echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');
 else
 {
 move_uploaded_file($_FILES["gunpic"]["tmp_name"],"gunimg/".$imgnewname);
-$sql="INSERT INTO  tblGuns(gunname,CatId,manufacturerId,serialnumberNumber,gunPrice,gunImage) VALUES(:gunname,:category,:manufacturer,:serialnumber,:price,:imgnewname)";
+$sql="INSERT INTO  tblguns(GunName,CatId,ManufacturerId,SERIALNumber,GunPrice,gunImage) VALUES(:gunname,:category,:manufacturer,:serial,:price,:imgnewname)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':gunname',$gunname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
 $query->bindParam(':manufacturer',$manufacturer,PDO::PARAM_STR);
-$query->bindParam(':serialnumber',$serialnumber,PDO::PARAM_STR);
+$query->bindParam(':serial',$serial,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
 $query->bindParam(':imgnewname',$imgnewname,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-echo "<script>alert('gun Listed successfully');</script>";
+echo "<script>alert('Gun Listed successfully');</script>";
 echo "<script>window.location.href='manage-guns.php'</script>";
 }
 else 
@@ -60,8 +60,8 @@ echo "<script>window.location.href='manage-guns.php'</script>";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
-    <meta name="manufacturer" content="" />
-    <title>Online Arsenal Management System | Add gun</title>
+    <meta name="author" content="" />
+    <title>Online Arsenal Management System | Add Gun</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -71,14 +71,14 @@ echo "<script>window.location.href='manage-guns.php'</script>";
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 <script type="text/javascript">
-    function checkserialnumberAvailability() {
+    function checkserialAvailability() {
 $("#loaderIcon").show();
 jQuery.ajax({
 url: "check_availability.php",
-data:'serialnumber='+$("#serialnumber").val(),
+data:'serial='+$("#serial").val(),
 type: "POST",
 success:function(data){
-$("#serialnumber-availability-status").html(data);
+$("#serial-availability-status").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -95,7 +95,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Gun</h4>
+                <h4 class="header-line">Add Firearm</h4>
                 
                             </div>
 
@@ -104,14 +104,14 @@ error:function (){}
 <div class="col-md-12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-Gun Info
+Firearm Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
 
 <div class="col-md-6">   
 <div class="form-group">
-<label>Gun Name<span style="color:red;">*</span></label>
+<label>Firearm Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="gunname" autocomplete="off"  required />
 </div>
 </div>
@@ -142,10 +142,10 @@ foreach($results as $result)
 <div class="form-group">
 <label> Manufacturer<span style="color:red;">*</span></label>
 <select class="form-control" name="manufacturer" required="required">
-<option value=""> Select manufacturer</option>
+<option value=""> Select Manufacturer</option>
 <?php 
 
-$sql = "SELECT * from  tblManufacturer ";
+$sql = "SELECT * from  tblmanufacturer ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -154,17 +154,17 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {               ?>  
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->manufacturerName);?></option>
+<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->ManufacturerName);?></option>
  <?php }} ?> 
 </select>
 </div></div>
 
 <div class="col-md-6">  
 <div class="form-group">
-<label>Serial Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="serialnumber" id="serialnumber" required="required" autocomplete="off" onBlur="checkserialnumberAvailability()"  />
-<p class="help-block">An Serialnumber is an International Standard Gun Number. It must be unique</p>
-         <span id="serialnumber-availability-status" style="font-size:12px;"></span>
+<label>SERIAL Number<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="serial" id="serial" required="required" autocomplete="off" onBlur="checkserialAvailability()"  />
+<p class="help-block">An SERIAL is an International Standard Gun Number.IT Must be unique</p>
+         <span id="serial-availability-status" style="font-size:12px;"></span>
 </div></div>
 
 <div class="col-md-6">  
@@ -176,7 +176,7 @@ foreach($results as $result)
 
 <div class="col-md-6">  
  <div class="form-group">
- <label>Gun Picture<span style="color:red;">*</span></label>
+ <label>Firearm Picture<span style="color:red;">*</span></label>
  <input class="form-control" type="file" name="gunpic" autocomplete="off"   required="required" />
  </div>
     </div>

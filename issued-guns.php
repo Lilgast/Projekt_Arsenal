@@ -39,7 +39,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Issued Guns</h4>
+                <h4 class="header-line">Manage Issued Firearms</h4>
     </div>
     
 
@@ -48,7 +48,7 @@ else{
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                          Issued Guns 
+                          Issued Firearms 
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -56,7 +56,7 @@ else{
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Gun Name</th>
+                                            <th>Firearm Name</th>
                                             <th>Serial Number </th>
                                             <th>Issued Date</th>
                                             <th>Return Date</th>

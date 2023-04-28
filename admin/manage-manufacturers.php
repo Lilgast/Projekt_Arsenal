@@ -14,8 +14,8 @@ $sql = "delete from tblManufacturer  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Author deleted";
-header('location:manage-authors.php');
+$_SESSION['delmsg']="Manufacturer deleted";
+header('location:manage-manufacturers.php');
 
 }
 
@@ -28,7 +28,7 @@ header('location:manage-authors.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Manage Authors</title>
+    <title>Online Arsenal Management System | Manage Manufacturers</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -49,7 +49,7 @@ header('location:manage-authors.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Authors</h4>
+                <h4 class="header-line">Manage Manufacturers</h4>
     </div>
      <div class="row">
     <?php if($_SESSION['error']!="")
@@ -112,15 +112,14 @@ header('location:manage-authors.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Manufacturer</th>
-                                         
+                                            <th>Manufacturer</th>                                       
                                             <th>Creation Date</th>
                                             <th>Updation Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT * from  tblManufacturer";
+<?php $sql = "SELECT * from  tblmanufacturer";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);

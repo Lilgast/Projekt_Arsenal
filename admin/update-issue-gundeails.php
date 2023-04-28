@@ -37,7 +37,7 @@ header('location:manage-issued-guns.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Issued Book Details</title>
+    <title>Online Arsenal Management System | Issued Gun Details</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -63,7 +63,7 @@ error:function (){}
 }
 
 
-function getbook() {
+function getgun() {
 $("#loaderIcon").show();
 jQuery.ajax({
 url: "get_gun.php",
@@ -95,7 +95,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Issued Gun Details</h4>
+                <h4 class="header-line">Issued Firearm Details</h4>
                 
                             </div>
 
@@ -104,13 +104,13 @@ error:function (){}
 <div class="col-md-10 col-sm-6 col-xs-12 col-md-offset-1">
 <div class="panel panel-info">
 <div class="panel-heading">
-Issued Gun Details
+Issued Firearm Details
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <?php 
 $rid=intval($_GET['rid']);
-$sql = "SELECT tblclients.ClientId ,tblclients.FullName,tblclients.EmailId,tblclients.MobileNumber,tblGuns.BookName,tblGuns.SerialNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid,issuedgundetails.fine,issuedgundetails.RetrunStatus,tblGuns.id as bid,tblGuns.bookImage from  issuedgundetails join tblclients on tblclients.ClientId=issuedgundetails.ClientId join tblGuns on tblGuns.id=issuedgundetails.GunId where issuedgundetails.id=:rid";
+$sql = "SELECT tblclients.ClientId ,tblclients.FullName,tblclients.EmailId,tblclients.MobileNumber,tblGuns.GunName,tblGuns.SerialNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid,issuedgundetails.fine,issuedgundetails.RetrunStatus,tblGuns.id as bid,tblGuns.gunImage from  issuedgundetails join tblclients on tblclients.ClientId=issuedgundetails.ClientId join tblGuns on tblGuns.id=issuedgundetails.GunId where issuedgundetails.id=:rid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':rid',$rid,PDO::PARAM_STR);
 $query->execute();
@@ -123,7 +123,7 @@ foreach($results as $result)
                    
 
 
-<input type="hidden" name="bookid" value="<?php echo htmlentities($result->bid);?>">
+<input type="hidden" name="gunid" value="<?php echo htmlentities($result->bid);?>">
 <h4>Client Details</h4>
 <hr />
 <div class="col-md-6"> 
@@ -152,38 +152,38 @@ foreach($results as $result)
 
 
 
-<h4>Book Details</h4>
+<h4>Firearm Details</h4>
 <hr />
 
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Book Image :</label>
-<img src="bookimg/<?php echo htmlentities($result->bookImage); ?>" width="120">
+<label>Image :</label>
+<img src="gunimg/<?php echo htmlentities($result->gunImage); ?>" width="120">
 </div></div>
 
 
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Book Name :</label>
-<?php echo htmlentities($result->BookName);?>
+<label>Model :</label>
+<?php echo htmlentities($result->GunName);?>
 </div>
 </div>
 <div class="col-md-6"> 
 <div class="form-group">
-<label>ISBN :</label>
+<label>S/N Number :</label>
 <?php echo htmlentities($result->SerialNumber);?>
 </div>
 </div>
 
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Book Issued Date :</label>
+<label>Issued Date :</label>
 <?php echo htmlentities($result->IssuesDate);?>
 </div></div>
 
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Book Returned Date :</label>
+<label>Returned Date :</label>
 <?php if($result->ReturnDate=="")
                                             {
                                                 echo htmlentities("Not Return Yet");
@@ -212,7 +212,7 @@ echo htmlentities($result->fine);
 </div>
  <?php if($result->RetrunStatus==0){?>
 
-<button type="submit" name="return" id="submit" class="btn btn-info">Return Book </button>
+<button type="submit" name="return" id="submit" class="btn btn-info">Return Gun </button>
 
  </div>
 

@@ -42,18 +42,18 @@
                                 </ul>
                             </li>
  <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Guns <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Firearms <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-gun.php">Add Gun</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-guns.php">Manage Guns</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-gun.php">Add Firearm</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-guns.php">Manage Firearms</a></li>
                                 </ul>
                             </li>
 
                            <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Guns <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Firearms <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="issue-gun.php">Issue New Gun</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-guns.php">Manage Issued Guns</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="issue-gun.php">Issue New Firearm</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-guns.php">Manage Issued Firearms</a></li>
                                 </ul>
                             </li>
                              <li><a href="reg-client.php">Reg Clients</a></li>

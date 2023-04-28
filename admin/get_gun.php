@@ -5,7 +5,7 @@ if(!empty($_POST["gunid"]))
  
     $sql ="SELECT distinct tblGuns.gunName,tblGuns.id,tblManufacturer.manufacturerName,tblGuns.gunImage,tblGuns.isIssued FROM tblGuns
 join tblManufacturer on tblManufacturer.id=tblGuns.manufacturerId
-     WHERE (ISBNNumber=:gunid || gunName like '%$gunid%')";
+     WHERE (SerialNumber=:gunid || gunName like '%$gunid%')";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':gunid', $gunid, PDO::PARAM_STR);
 $query-> execute();
@@ -22,7 +22,7 @@ if($query -> rowCount() > 0){
       <?php echo htmlentities($result->gunName); ?><br />
     <?php echo htmlentities($result->manufacturerName); ?><br />
     <?php if($result->isIssued=='1'): ?>
-<p style="color:red;">gun Already issued</p>
+<p style="color:red;">Firearm Already issued</p>
 <?php else:?>
 <input type="radio" name="gunid" value="<?php echo htmlentities($result->id); ?>" required>
 <?php endif;?>
