@@ -13,10 +13,10 @@ if(isset($_POST['update']))
 $gunname=$_POST['gunname'];
 $category=$_POST['category'];
 $manufacturer=$_POST['manufacturer'];
-$serialnumber=$_POST['serialnumber'];
+$serial=$_POST['serial'];
 $price=$_POST['price'];
 $gunid=intval($_GET['gunid']);
-$sql="update  tblGuns set gunName=:gunname,CatId=:category,manufacturerId=:manufacturer,gunPrice=:price where id=:gunid";
+$sql="update  tblGuns set GunName=:gunname,CatId=:category,ManufacturerId=:manufacturer,GunPrice=:price where id=:gunid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':gunname',$gunname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
@@ -24,7 +24,7 @@ $query->bindParam(':manufacturer',$manufacturer,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
 $query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->execute();
-echo "<script>alert('gun info updated successfully');</script>";
+echo "<script>alert('Gun info updated successfully');</script>";
 echo "<script>window.location.href='manage-guns.php'</script>";
 
 
@@ -37,7 +37,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="manufacturer" content="" />
-    <title>Online Arsenal Management System | Edit gun</title>
+    <title>Online Arsenal Management System | Edit Gun</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -56,7 +56,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add gun</h4>
+                <h4 class="header-line">Edit Gun</h4>
                 
                             </div>
 
@@ -65,13 +65,13 @@ echo "<script>window.location.href='manage-guns.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-gun Info
+Gun Info
 </div>
 <div class="panel-body">
 <form role="form" method="post">
 <?php 
 $gunid=intval($_GET['gunid']);
-$sql = "SELECT tblGuns.gunName,tblcategory.CategoryName,tblcategory.id as cid,tblManufacturer.manufacturerName,tblManufacturer.id as athrid,tblGuns.serialnumber,tblGuns.gunPrice,tblGuns.id as gunid,tblGuns.gunImage from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.manufacturerId where tblGuns.id=:gunid";
+$sql = "SELECT tblGuns.GunName,tblcategory.CategoryName,tblcategory.id as cid,tblManufacturer.ManufacturerName,tblManufacturer.id as athrid,tblGuns.SERIALNumber,tblGuns.GunPrice,tblGuns.id as gunid,tblGuns.gunImage from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.ManufacturerId where tblGuns.id=:gunid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':gunid',$gunid,PDO::PARAM_STR);
 $query->execute();
@@ -84,15 +84,15 @@ foreach($results as $result)
 
 <div class="col-md-6">
 <div class="form-group">
-<label>gun Image</label>
+<label>Gun Image</label>
 <img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
-<a href="change-gunimg.php?gunid=<?php echo htmlentities($result->gunid);?>">Change gun Image</a>
+<a href="change-gunimg.php?gunid=<?php echo htmlentities($result->gunid);?>">Change Gun Image</a>
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>gun Name<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->gunName);?>" required />
+<label>Gun Name<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->GunName);?>" required />
 </div></div>
 
 <div class="col-md-6">
@@ -125,9 +125,9 @@ else
 
 <div class="col-md-6">
 <div class="form-group">
-<label> manufacturer<span style="color:red;">*</span></label>
+<label> Manufacturer<span style="color:red;">*</span></label>
 <select class="form-control" name="manufacturer" required="required">
-<option value="<?php echo htmlentities($result->athrid);?>"> <?php echo htmlentities($athrname=$result->manufacturerName);?></option>
+<option value="<?php echo htmlentities($result->athrid);?>"> <?php echo htmlentities($athrname=$result->ManufacturerName);?></option>
 <?php 
 
 $sql2 = "SELECT * from  tblManufacturer ";
@@ -138,13 +138,13 @@ if($query2->rowCount() > 0)
 {
 foreach($result2 as $ret)
 {           
-if($athrname==$ret->manufacturerName)
+if($athrname==$ret->ManufacturerName)
 {
 continue;
 } else{
 
     ?>  
-<option value="<?php echo htmlentities($ret->id);?>"><?php echo htmlentities($ret->manufacturerName);?></option>
+<option value="<?php echo htmlentities($ret->id);?>"><?php echo htmlentities($ret->ManufacturerName);?></option>
  <?php }}} ?> 
 </select>
 </div></div>
@@ -152,16 +152,16 @@ continue;
 
 <div class="col-md-6">
 <div class="form-group">
-<label>serialnumber Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="serialnumber" value="<?php echo htmlentities($result->serialnumber);?>"  readonly />
-<p class="help-block">An serialnumber is an International Standard gun Number.serialnumber Must be unique</p>
+<label>SERIAL Number<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="serial" value="<?php echo htmlentities($result->SERIALNumber);?>"  readonly />
+<p class="help-block">An SERIAL is an International Standard Gun Number.SERIAL Must be unique</p>
 </div></div>
 
 
 <div class="col-md-6">
  <div class="form-group">
  <label>Price in USD<span style="color:red;">*</span></label>
- <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->gunPrice);?>"   required="required" />
+ <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->GunPrice);?>"   required="required" />
  </div></div>
  <?php }} ?><div class="col-md-12">
 <button type="submit" name="update" class="btn btn-info">Update </button></div>

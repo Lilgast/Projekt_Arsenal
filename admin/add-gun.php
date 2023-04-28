@@ -95,7 +95,7 @@ error:function (){}
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add gun</h4>
+                <h4 class="header-line">Add Gun</h4>
                 
                             </div>
 
@@ -104,14 +104,14 @@ error:function (){}
 <div class="col-md-12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-gun Info
+Gun Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
 
 <div class="col-md-6">   
 <div class="form-group">
-<label>gun Name<span style="color:red;">*</span></label>
+<label>Gun Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="gunname" autocomplete="off"  required />
 </div>
 </div>
@@ -140,7 +140,7 @@ foreach($results as $result)
 
 <div class="col-md-6">  
 <div class="form-group">
-<label> manufacturer<span style="color:red;">*</span></label>
+<label> Manufacturer<span style="color:red;">*</span></label>
 <select class="form-control" name="manufacturer" required="required">
 <option value=""> Select manufacturer</option>
 <?php 
@@ -161,9 +161,9 @@ foreach($results as $result)
 
 <div class="col-md-6">  
 <div class="form-group">
-<label>serialnumber Number<span style="color:red;">*</span></label>
+<label>Serial Number<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="serialnumber" id="serialnumber" required="required" autocomplete="off" onBlur="checkserialnumberAvailability()"  />
-<p class="help-block">An serialnumber is an International Standard gun Number.serialnumber Must be unique</p>
+<p class="help-block">An Serialnumber is an International Standard Gun Number. It must be unique</p>
          <span id="serialnumber-availability-status" style="font-size:12px;"></span>
 </div></div>
 
@@ -176,7 +176,7 @@ foreach($results as $result)
 
 <div class="col-md-6">  
  <div class="form-group">
- <label>gun Picture<span style="color:red;">*</span></label>
+ <label>Gun Picture<span style="color:red;">*</span></label>
  <input class="form-control" type="file" name="gunpic" autocomplete="off"   required="required" />
  </div>
     </div>

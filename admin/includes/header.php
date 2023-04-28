@@ -35,28 +35,28 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Authors <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Manufacturers <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-author.php">Add Author</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-authors.php">Manage Authors</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-manufacturer.php">Add Manufacturer</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-manufacturers.php">Manage Manufacturers</a></li>
                                 </ul>
                             </li>
  <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Books <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Guns <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-book.php">Add Book</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-books.php">Manage Books</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="add-gun.php">Add Gun</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-guns.php">Manage Guns</a></li>
                                 </ul>
                             </li>
 
                            <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Books <i class="fa fa-angle-down"></i></a>
+                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Guns <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="issue-book.php">Issue New Book</a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-books.php">Manage Issued Books</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="issue-gun.php">Issue New Gun</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-guns.php">Manage Issued Guns</a></li>
                                 </ul>
                             </li>
-                             <li><a href="reg-students.php">Reg Students</a></li>
+                             <li><a href="reg-client.php">Reg Clients</a></li>
                     
   <li><a href="change-password.php">Change Password</a></li>
                         </ul>

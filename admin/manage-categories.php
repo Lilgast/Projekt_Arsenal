@@ -114,7 +114,7 @@ header('location:manage-categories.php');
                                             <th>Category</th>
                                             <th>Status</th>
                                             <th>Creation Date</th>
-                                            <th>Updation Date</th>
+                                            
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -137,7 +137,7 @@ foreach($results as $result)
                                             <a href="#" class="btn btn-danger btn-xs">Inactive</a>
                                             <?php } ?></td>
                                             <td class="center"><?php echo htmlentities($result->CreationDate);?></td>
-                                            <td class="center"><?php echo htmlentities($result->UpdationDate);?></td>
+                                            
                                             <td class="center">
 
                                             <a href="edit-category.php?catid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 

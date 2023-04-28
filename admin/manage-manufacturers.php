@@ -104,7 +104,7 @@ header('location:manage-authors.php');
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Authors Listing
+                           Manufacturers Listing
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -112,7 +112,7 @@ header('location:manage-authors.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Author</th>
+                                            <th>Manufacturer</th>
                                          
                                             <th>Creation Date</th>
                                             <th>Updation Date</th>
@@ -131,13 +131,13 @@ foreach($results as $result)
 {               ?>                                      
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->ManufacturerName);?></td>
                                             <td class="center"><?php echo htmlentities($result->creationDate);?></td>
                                             <td class="center"><?php echo htmlentities($result->UpdationDate);?></td>
                                             <td class="center">
 
-                                            <a href="edit-author.php?athrid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                          <a href="manage-authors.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-manufacturer.php?athrid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
+                                          <a href="manage-manufacturers.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      

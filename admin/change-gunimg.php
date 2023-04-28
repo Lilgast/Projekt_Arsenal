@@ -13,17 +13,11 @@ if(isset($_POST['update']))
 
 $gunid=intval($_GET['gunid']);
 $gunimg=$_FILES["gunpic"]["name"];
-//currentimage
 $cimage=$_POST['curremtimage'];
 $cpath="gunimg"."/".$cimage;
-// get the image extension
 $extension = substr($gunimg,strlen($gunimg)-4,strlen($gunimg));
-// allowed extensions
 $allowed_extensions = array(".jpg","jpeg",".png",".gif");
-// Validation for allowed extensions .in_array() function searches an array for a specific value.
-//rename the image file
 $imgnewname=md5($gunimg.time()).$extension;
-// Code for move image into directory
 
 if(!in_array($extension,$allowed_extensions))
 {
@@ -31,7 +25,7 @@ echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');
 }
 else
 {
-    move_uploaded_file($_FILES["gunpic"]["tmp_name"],"gunimg/".$imgnewname);
+move_uploaded_file($_FILES["gunpic"]["tmp_name"],"gunimg/".$imgnewname);
 $sql="update  tblGuns set gunImage=:imgnewname where id=:gunid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':imgnewname',$imgnewname,PDO::PARAM_STR);
@@ -70,7 +64,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add gun</h4>
+                <h4 class="header-line">Edit Gun</h4>
                 
                             </div>
 
@@ -79,7 +73,7 @@ echo "<script>window.location.href='manage-guns.php'</script>";
 <div class="col-md12 col-sm-12 col-xs-12">
 <div class="panel panel-info">
 <div class="panel-heading">
-gun Info
+    Gun Info
 </div>
 <div class="panel-body">
 <form role="form" method="post" enctype="multipart/form-data">
@@ -98,19 +92,19 @@ foreach($results as $result)
 <input type="hidden" name="curremtimage" value="<?php echo htmlentities($result->gunImage);?>">
 <div class="col-md-6">
 <div class="form-group">
-<label>gun Image</label>
+<label>Gun Image</label>
 <img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label>gun Name<span style="color:red;">*</span></label>
+<label>Gun Name<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="gunname" value="<?php echo htmlentities($result->gunName);?>" readonly />
 </div></div>
 
 <div class="col-md-6">  
  <div class="form-group">
- <label>gun Picture<span style="color:red;">*</span></label>
+ <label>Gun Picture<span style="color:red;">*</span></label>
  <input class="form-control" type="file" name="gunpic" autocomplete="off"   required="required" />
  </div>
     </div>

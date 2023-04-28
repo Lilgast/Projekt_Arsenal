@@ -15,7 +15,7 @@ $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
 $_SESSION['delmsg']="Category deleted scuccessfully ";
-header('location:manage-books.php');
+header('location:manage-guns.php');
 
 }
 
@@ -28,7 +28,7 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Arsenal Management System | Manage Books</title>
+    <title>Online Arsenal Management System | Manage Guns</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -49,7 +49,7 @@ header('location:manage-books.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Books</h4>
+                <h4 class="header-line">Manage Guns</h4>
     </div>
   
 
@@ -60,7 +60,7 @@ header('location:manage-books.php');
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Books Listing
+                           Guns Listing
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -68,16 +68,16 @@ header('location:manage-books.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Book Name</th>
+                                            <th>Gun Name</th>
                                             <th>Category</th>
-                                            <th>Author</th>
-                                            <th>ISBN</th>
+                                            <th>Manufacturer</th>
+                                            <th>Serial Number</th>
                                             <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT tblGuns.BookName,tblcategory.CategoryName,tblManufacturer.AuthorName,tblGuns.ISBNNumber,tblGuns.BookPrice,tblGuns.id as bookid,tblGuns.bookImage from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.AuthorId";
+<?php $sql = "SELECT tblguns.GunName,tblcategory.CategoryName,tblmanufacturer.ManufacturerName,tblguns.SerialNumber,tblguns.GunPrice,tblguns.id as gunid,tblguns.gunImage from  tblguns join tblcategory on tblcategory.id=tblguns.CatId join tblManufacturer on tblmanufacturer.id=tblguns.ManufacturerId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -89,16 +89,16 @@ foreach($results as $result)
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
                                             <td class="center" width="300">
-<img src="bookimg/<?php echo htmlentities($result->bookImage);?>" width="100">
-                                                <br /><b><?php echo htmlentities($result->BookName);?></b></td>
+<img src="gunimg/<?php echo htmlentities($result->gunImage);?>" width="100">
+                                                <br /><b><?php echo htmlentities($result->GunName);?></b></td>
                                             <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookPrice);?></td>
+                                            <td class="center"><?php echo htmlentities($result->ManufacturerName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->SerialNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->GunPrice);?></td>
                                             <td class="center">
 
-                                            <a href="edit-book.php?bookid=<?php echo htmlentities($result->bookid);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                          <a href="manage-books.php?del=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-gun.php?gunid=<?php echo htmlentities($result->gunid);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
+                                          <a href="manage-guns.php?del=<?php echo htmlentities($result->gunid);?>" onclick="return confirm('Are you sure you want to delete?');" >  <button class="btn btn-danger"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
