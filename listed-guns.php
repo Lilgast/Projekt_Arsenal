@@ -39,7 +39,7 @@ else{
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Issued Firearms</h4>
+                <h4 class="header-line">List of Firearms</h4>
     </div>
     
 
@@ -53,7 +53,7 @@ else{
                         <div class="panel-body">
                        
 
-<?php $sql = "SELECT tblGuns.GunName,tblcategory.CategoryName,tblManufacturer.ManufacturerName,tblGuns.SerialNumber,tblGuns.GunPrice,tblGuns.id as gunid,tblGuns.gunImage,tblGuns.isIssued from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.ManufacturerId";
+<?php $sql = "SELECT tblGuns.GunName,tblcategory.CategoryName,tblManufacturer.ManufacturerName,tblGuns.SerialNumber,tblGuns.GunPrice,tblGuns.id as gunid,tblGuns.gunImage,tblGuns.isIssued, tblguns.GunPrice from  tblGuns join tblcategory on tblcategory.id=tblGuns.CatId join tblManufacturer on tblManufacturer.id=tblGuns.ManufacturerId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -72,6 +72,7 @@ foreach($results as $result)
                                                 <?php echo htmlentities($result->CategoryName);?><br />
                                             <?php echo htmlentities($result->ManufacturerName);?><br />
                                             <?php echo htmlentities($result->SerialNumber);?><br />
+                                            <?php echo htmlentities($result->GunPrice);?><br />
                                                 <?php if($result->isIssued=='1'): ?>
 <p style="color:red;">Firearm Already issued</p>
 <?php endif;?>

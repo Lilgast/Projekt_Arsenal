@@ -97,7 +97,7 @@ header('location:reg-clients.php');
                                     <tbody>
 <?php 
 
-$sql = "SELECT tblclients.ClientId ,tblclients.FullName,tblclients.EmailId,tblclients.MobileNumber,tblGuns.GunName,tblGuns.ISBNNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid,issuedgundetails.fine,issuedgundetails.RetrunStatus,tblGuns.id as bid,tblGuns.gunImage from  issuedgundetails join tblclients on tblclients.ClientId=issuedgundetails.ClientId join tblGuns on tblGuns.id=issuedgundetails.GunId where tblclients.ClientId='$sid' ";
+$sql = "SELECT tblclients.ClientId ,tblclients.FullName,tblclients.EmailId,tblclients.MobileNumber,tblGuns.GunName,tblGuns.SerialNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid,issuedgundetails.fine,issuedgundetails.RetrunStatus,tblGuns.id as bid,tblGuns.gunImage from  issuedgundetails join tblclients on tblclients.ClientId=issuedgundetails.ClientId join tblGuns on tblGuns.id=issuedgundetails.GunId where tblclients.ClientId='$sid' ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);

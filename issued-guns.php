@@ -66,7 +66,8 @@ else{
                                     <tbody>
 <?php 
 $sid=$_SESSION['stdid'];
-$sql="SELECT tblGuns.GunName,tblGuns.SerialNumber,issuedgundetails.IssuesDate,issuedgundetails.ReturnDate,issuedgundetails.id as rid,issuedgundetails.fine from  issuedgundetails join tblclients on tblclients.ManufacturerId=issuedgundetails.ManufacturerId join tblGuns on tblGuns.id=issuedgundetails.GunId where tblclients.ManufacturerId=:sid order by issuedgundetails.id desc";
+
+$sql="SELECT tblguns.GunName, tblguns.SerialNumber, issuedgundetails.IssuesDate, issuedgundetails.ReturnDate, issuedgundetails.fine, issuedgundetails.ClientID FROM tblguns JOIN issuedgundetails ON tblguns.id=issuedgundetails.GunId WHERE issuedgundetails.ClientID=:sid";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':sid', $sid, PDO::PARAM_STR);
 $query->execute();
@@ -78,8 +79,8 @@ foreach($results as $result)
 {               ?>                                      
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->GunName);?></td>
+                                            <td class="center"><?php echo htmlentities($result->SerialNumber);?></td>
                                             <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
                                             <td class="center"><?php if($result->ReturnDate=="")
                                             {?>
